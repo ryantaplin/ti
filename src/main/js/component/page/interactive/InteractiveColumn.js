@@ -3,8 +3,8 @@ import React from "react";
 export default function InteractiveColumn({header, children}) {
 
     const containerStyle = {
-        minHeight: '95vh', //this has to be reflective of all components (i.e header/footer inclusive)
-        maxHeight: '95vh', //this has to be reflective of all components (i.e header/footer inclusive)
+        minHeight: '90vh', //this has to be reflective of all components (i.e header/footer inclusive)
+        maxHeight: '90vh', //this has to be reflective of all components (i.e header/footer inclusive)
 
         padding: '.5rem',
         borderRadius: '5px',
