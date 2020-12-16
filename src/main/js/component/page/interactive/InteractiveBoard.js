@@ -7,6 +7,11 @@ import {HEIGHT as CARD_HEIGHT} from './card/CardConstant';
 
 export default function InteractiveBoard({boardPrefix, columnData}) {
     const items = ['one', 'two', 'three', 'four', 'five'];
+    const colItems = [{
+        items: items
+    }, {
+        items: items
+    }];
     const [state, setState] = useState({
         order: items, // item order whilst static
         dragOrder: items, // item order whilst dragging
@@ -44,16 +49,12 @@ export default function InteractiveBoard({boardPrefix, columnData}) {
     };
 
     const containerStyle = {
-        display: 'grid',
-        padding: '.5rem .5rem 0 .5rem',
-        gridTemplateRows: 'auto 1fr',
-        gridTemplateColumns: 'repeat(auto-fill, 220px)',
-        gap: '.5rem',
+        paddingTop: '1rem'
     };
 
     return (
         <div className="interactive-board" style={containerStyle}>
-            <InteractiveColumn header="one">
+            <InteractiveColumn index={0} header="READY">
                 {items.map(index => {
                     const isDragging = state.draggedIndex === index;
                     return (
@@ -67,7 +68,7 @@ export default function InteractiveBoard({boardPrefix, columnData}) {
                     )
                 })}
             </InteractiveColumn>
-            <InteractiveColumn header="two">
+            <InteractiveColumn index={1} header="DEV">
                 {items.map(index => {
                     const isDragging = state.draggedIndex === index;
                     return (
