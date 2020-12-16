@@ -1,10 +1,8 @@
 import React from "react";
 import Draggable from "./Draggable";
+import { HEIGHT as CARD_HEIGHT, WIDTH as CARD_WIDTH }  from "./CardConstant";
 
-const CARD_HEIGHT = 100;
-const CARD_WIDTH = 200;
-
-const CARD_FONT_SIZE = 20;
+const CARD_FONT_SIZE = 20; //CSS this
 
 export default function InteractiveCard({children, location, draggable}) {
 

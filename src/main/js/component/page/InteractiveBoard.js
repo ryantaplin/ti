@@ -3,7 +3,7 @@ import InteractiveCard from "./interactive/InteractiveCard";
 import {inRange} from 'lodash';
 import InteractiveColumn from "./interactive/InteractiveColumn";
 
-const CARD_HEIGHT = 100;
+import {HEIGHT as CARD_HEIGHT} from './interactive/CardConstant';
 
 export default function InteractiveBoard({boardPrefix, columnData}) {
     const items = ['one', 'two', 'three', 'four', 'five'];
@@ -14,12 +14,14 @@ export default function InteractiveBoard({boardPrefix, columnData}) {
     });
 
     const handleDrag = useCallback(({translation, id}) => {
-        const delta = Math.round(translation.y / 100);
+        const delta = Math.round(translation.y / CARD_HEIGHT);
         const index = state.order.indexOf(id);
         const dragOrder = state.order.filter(index => index !== id);
 
         if (inRange(index + delta, 0, items.length)) {
             console.log("In range...", index, delta);
+            console.log("Y", translation.y);
+
             dragOrder.splice(index + delta, 0, id);
             setState(state => ({
                 ...state,

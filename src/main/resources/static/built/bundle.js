@@ -49852,62 +49852,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _component_page_HomePage_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component/page/HomePage.js */ "./src/main/js/component/page/HomePage.js");
 /* harmony import */ var _component_page_InvalidPage_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./component/page/InvalidPage.js */ "./src/main/js/component/page/InvalidPage.js");
-/* harmony import */ var _component_page_InteractiveBoard_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./component/page/InteractiveBoard.js */ "./src/main/js/component/page/InteractiveBoard.js");
 
 
 
 
 
 
- // import 'bootstrap/dist/css/bootstrap.css';
-
-var data = {
-  owner: {
-    name: 'Task Interface',
-    prefix: 'TI'
-  },
-  columns: [{
-    name: 'Group 1',
-    cards: [{
-      number: '1'
-    }, {
-      number: '2'
-    }, {
-      number: '3'
-    }, {
-      number: '4'
-    }]
-  }, {
-    name: 'Group 2',
-    cards: [{
-      number: '5'
-    }, {
-      number: '6'
-    }]
-  }, {
-    name: 'Group 3',
-    cards: []
-  }]
-};
-react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: "page"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
   exact: true,
   path: "/",
   component: _component_page_HomePage_js__WEBPACK_IMPORTED_MODULE_4__["default"]
 }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
-  exact: true,
-  path: "/interactive",
-  component: function component() {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_component_page_InteractiveBoard_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      boardPrefix: data.owner.prefix,
-      columnData: data.columns
-    });
-  }
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Route"], {
   path: "*",
   component: _component_page_InvalidPage_js__WEBPACK_IMPORTED_MODULE_5__["default"]
-})))), document.getElementById('root'));
+}))), document.getElementById('root'));
 _utils_serviceWorker__WEBPACK_IMPORTED_MODULE_2__["unregister"]();
 
 /***/ }),
@@ -49924,9 +49882,50 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return HomePage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _InteractiveBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InteractiveBoard */ "./src/main/js/component/page/InteractiveBoard.js");
+
 
 function HomePage() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Welcome to Ti!");
+  var data = {
+    owner: {
+      name: 'Task Interface',
+      prefix: 'TI'
+    },
+    columns: [{
+      name: 'Group 1',
+      cards: [{
+        number: '1'
+      }, {
+        number: '2'
+      }, {
+        number: '3'
+      }, {
+        number: '4'
+      }]
+    }, {
+      name: 'Group 2',
+      cards: [{
+        number: '5'
+      }, {
+        number: '6'
+      }]
+    }, {
+      name: 'Group 3',
+      cards: []
+    }]
+  };
+  var containerStyle = {
+    minHeight: '100vh',
+    minWidth: '100vw',
+    backgroundColor: '#282c34',
+    position: 'absolute'
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "body",
+    style: containerStyle
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Blah"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_InteractiveBoard__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    boardPrefix: data.owner.prefix
+  }));
 }
 
 /***/ }),
@@ -49997,6 +49996,7 @@ function InteractiveBoard(_ref) {
     });
 
     if (Object(lodash__WEBPACK_IMPORTED_MODULE_2__["inRange"])(index + delta, 0, items.length)) {
+      console.log("In range...", index, delta);
       dragOrder.splice(index + delta, 0, id);
       setState(function (state) {
         return _objectSpread(_objectSpread({}, state), {}, {
@@ -50020,17 +50020,14 @@ function InteractiveBoard(_ref) {
   };
 
   var containerStyle = {
-    minHeight: '100vh',
-    minWidth: '100vw',
-    backgroundColor: '#282c34',
-    position: 'absolute',
     display: 'grid',
     padding: '.5rem .5rem 0 .5rem',
+    gridTemplateRows: 'auto 1fr',
     gridTemplateColumns: 'repeat(auto-fill, 220px)',
-    gap: '.5rem',
-    overflowY: 'scroll'
+    gap: '.5rem'
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "interactive-board",
     style: containerStyle
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_interactive_InteractiveColumn__WEBPACK_IMPORTED_MODULE_3__["default"], {
     header: "one"
@@ -50047,7 +50044,7 @@ function InteractiveBoard(_ref) {
         onDrag: handleDrag,
         onDragEnd: handleDragEnd
       }
-    }, index);
+    }, boardPrefix + "-" + index);
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_interactive_InteractiveColumn__WEBPACK_IMPORTED_MODULE_3__["default"], {
     header: "two"
   }, items.map(function (index) {
@@ -50063,26 +50060,9 @@ function InteractiveBoard(_ref) {
         onDrag: handleDrag,
         onDragEnd: handleDragEnd
       }
-    }, index);
+    }, boardPrefix + "-" + index);
   })));
-} // {/*{*/}
-// {/*    columnData.map((column, columnIndex) => {*/}
-// {/*        return (*/}
-// {/*            <InteractiveColumn key={columnIndex} header={column.name}>*/}
-// {/*                {*/}
-// {/*                    column.cards.map((card, cardIndex) => {*/}
-// {/*                        return (*/}
-// {/*                            <InteractiveCard key={cardIndex}*/}
-// {/*                                             position={{column: columnIndex, card: cardIndex}}>*/}
-// {/*                                {boardPrefix + '-' + card.number}*/}
-// {/*                            </InteractiveCard>*/}
-// {/*                        );*/}
-// {/*                    })*/}
-// {/*                }*/}
-// {/*            </InteractiveColumn>*/}
-// {/*        );*/}
-// {/*    })*/}
-// {/*}*/}
+}
 
 /***/ }),
 
@@ -50240,24 +50220,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CARD_HEIGHT = 100;
+var CARD_WIDTH = 200;
+var CARD_FONT_SIZE = 20;
 function InteractiveCard(_ref) {
   var children = _ref.children,
       location = _ref.location,
       draggable = _ref.draggable;
   var containerStyle = {
-    width: '200px',
+    width: "".concat(CARD_WIDTH, "px"),
     height: "".concat(CARD_HEIGHT, "px"),
+    fontSize: "".concat(CARD_FONT_SIZE, "px"),
+    color: '282c34',
     userSelect: 'none',
     backgroundColor: 'white',
     borderRadius: '5px',
-    fontSize: '20px',
-    color: '282c34',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
     position: 'absolute',
-    top: "".concat(location ? location.top : 0, "px") // left: 'calc(50vw - 150px)',
-
+    top: "".concat(location ? location.top : 0, "px")
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Draggable__WEBPACK_IMPORTED_MODULE_1__["default"], {
     id: draggable.id,
@@ -50287,19 +50268,19 @@ function InteractiveColumn(_ref) {
   var header = _ref.header,
       children = _ref.children;
   var containerStyle = {
-    backgroundColor: '#49505e',
-    maxWidth: '200px',
     minHeight: '95vh',
+    //this has to be reflective of all components (i.e header/footer inclusive)
     maxHeight: '95vh',
+    //this has to be reflective of all components (i.e header/footer inclusive)
     padding: '.5rem',
-    // margin: '20px',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    backgroundColor: '#49505e'
   };
   var headerStyle = {
-    fontSize: '1.2rem',
-    color: 'white',
     height: '1.5rem',
-    marginBottom: '.5rem'
+    marginBottom: '.5rem',
+    fontSize: '1.2rem',
+    color: 'white'
   };
   var subContainerStyle = {};
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
