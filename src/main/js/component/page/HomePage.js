@@ -1,5 +1,5 @@
 import React from 'react';
-import InteractiveBoard from "./InteractiveBoard";
+import InteractiveBoard from "./interactive/InteractiveBoard";
 
 
 export default function HomePage() {

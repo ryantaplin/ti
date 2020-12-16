@@ -1,9 +1,9 @@
 import React, {useCallback, useState} from 'react';
-import InteractiveCard from "./interactive/InteractiveCard";
+import InteractiveCard from "./card/InteractiveCard";
 import {inRange} from 'lodash';
-import InteractiveColumn from "./interactive/InteractiveColumn";
+import InteractiveColumn from "./column/InteractiveColumn";
 
-import {HEIGHT as CARD_HEIGHT} from './interactive/CardConstant';
+import {HEIGHT as CARD_HEIGHT} from './card/CardConstant';
 
 export default function InteractiveBoard({boardPrefix, columnData}) {
     const items = ['one', 'two', 'three', 'four', 'five'];

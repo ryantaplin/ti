@@ -11,7 +11,7 @@ export default function InteractiveCard({children, location, draggable}) {
         height: `${CARD_HEIGHT}px`,
 
         fontSize: `${CARD_FONT_SIZE}px`,
-        color: '282c34',
+        color: '#282c34',
 
         userSelect: 'none',
         backgroundColor: 'white',
@@ -22,8 +22,7 @@ export default function InteractiveCard({children, location, draggable}) {
         textAlign: 'center',
 
         position: 'absolute',
-
-        top: `${location ? location.top : 0}px`,
+        top: `${location.top}px`,
     };
 
     return (
