@@ -2,16 +2,11 @@ import React, {useCallback, useState} from 'react';
 import InteractiveCard from "./card/InteractiveCard";
 import {inRange} from 'lodash';
 import InteractiveColumn from "./column/InteractiveColumn";
-
+import {topStartLocationFromOrderIndex, orderFromDragState} from "./Utils";
 import {HEIGHT as CARD_HEIGHT} from './card/CardConstant';
 
 export default function InteractiveBoard({boardPrefix, columnData}) {
     const items = ['one', 'two', 'three', 'four', 'five'];
-    const colItems = [{
-        items: items
-    }, {
-        items: items
-    }];
     const [state, setState] = useState({
         order: items, // item order whilst static
         dragOrder: items, // item order whilst dragging
@@ -44,10 +39,6 @@ export default function InteractiveBoard({boardPrefix, columnData}) {
         }));
     }, []);
 
-    const topLocation = (isDragging, index) => {
-        return isDragging ? state.order.indexOf(index) * (CARD_HEIGHT + 10) : state.dragOrder.indexOf(index) * (CARD_HEIGHT + 10)
-    };
-
     const containerStyle = {
         paddingTop: '1rem'
     };
@@ -57,25 +48,19 @@ export default function InteractiveBoard({boardPrefix, columnData}) {
             <InteractiveColumn index={0} header="READY">
                 {items.map(index => {
                     const isDragging = state.draggedIndex === index;
+                    const position = {
+                        top: topStartLocationFromOrderIndex(index, orderFromDragState(isDragging, state))
+                    };
+                    const draggableAttribute = {
+                        id: index,
+                        onDrag: handleDrag,
+                        onDragEnd: handleDragEnd
+                    };
                     return (
                         <InteractiveCard key={index}
-                                         location={{top: topLocation(isDragging, index)}}
+                                         position={position}
                                          isDragging={isDragging}
-                                         draggable={{id: index, onDrag: handleDrag, onDragEnd: handleDragEnd}}>
-                            {boardPrefix + "-" + index}
-                        </InteractiveCard>
-
-                    )
-                })}
-            </InteractiveColumn>
-            <InteractiveColumn index={1} header="DEV">
-                {items.map(index => {
-                    const isDragging = state.draggedIndex === index;
-                    return (
-                        <InteractiveCard key={index}
-                                         location={{top: topLocation(isDragging, index)}}
-                                         isDragging={isDragging}
-                                         draggable={{id: index, onDrag: handleDrag, onDragEnd: handleDragEnd}}>
+                                         draggableAttribute={draggableAttribute}>
                             {boardPrefix + "-" + index}
                         </InteractiveCard>
 

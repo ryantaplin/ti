@@ -4,7 +4,7 @@ import { HEIGHT as CARD_HEIGHT, WIDTH as CARD_WIDTH }  from "./CardConstant";
 
 const CARD_FONT_SIZE = 20; //CSS this
 
-export default function InteractiveCard({children, location, draggable}) {
+export default function InteractiveCard({children, position, draggableAttribute}) {
 
     const containerStyle = {
         width: `${CARD_WIDTH}px`,
@@ -22,11 +22,11 @@ export default function InteractiveCard({children, location, draggable}) {
         textAlign: 'center',
 
         position: 'absolute',
-        top: `${location.top}px`,
+        top: `${position.top}px`,
     };
 
     return (
-        <Draggable id={draggable.id} onDrag={draggable.onDrag} onDragEnd={draggable.onDragEnd}>
+        <Draggable id={draggableAttribute.id} onDrag={draggableAttribute.onDrag} onDragEnd={draggableAttribute.onDragEnd}>
             <div style={containerStyle}>
                 {children}
             </div>
