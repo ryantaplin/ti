@@ -1,47 +1,30 @@
-import React from 'react';
-import InteractiveBoard from "./interactive/InteractiveBoard";
+import React, {useState, useEffect} from 'react';
+import InteractiveBoard from "./interactive2/InteractiveBoard";
 
 
 export default function HomePage() {
-    const data = {
-        owner: {
-            name: 'Task Interface',
-            prefix: 'TI',
-        },
-        columns: [{
-            name: 'Group 1',
-            cards: [
-                {number: '1'},
-                {number: '2'},
-                {number: '3'},
-                {number: '4'}
-            ]
-        }, {
-            name: 'Group 2',
-            cards: [
-                {number: '5'},
-                {number: '6'}
-            ]
-        }, {
-            name: 'Group 3',
-            cards: []
-        }]
-    };
+    const defaultData = [
+        {title: 'group 1', items: ['1', '2', '3']},
+        {title: 'group 2', items: ['4', '5']}
+    ];
 
-    const containerStyle = {
-        minHeight: '100vh',
-        minWidth: '100vw',
-        backgroundColor: '#282c34',
-        position: 'absolute',
-        overflow: 'hidden'
-    };
+    const [data, setData] = useState([]);
+    useEffect(() => {
+            setData(defaultData)
+    }, [setData]);
 
+    //TODO: extract Header/Footer into their own components
     return (
-        <div className="body" style={containerStyle}>
-            <div style={{height: '25px', padding: '20px', backgroundColor: '#49505e', color: 'white'}}>
-                Interface Task Interface
+        <div className="page">
+            <div className="page-header">
+                Task Interface
             </div>
-            <InteractiveBoard boardPrefix={data.owner.prefix}/>
+            <div className="page-content">
+                <InteractiveBoard data={data}/>
+            </div>
+            <div className="page-footer">
+                Made by Ryan Taplin
+            </div>
         </div>
     );
 }
