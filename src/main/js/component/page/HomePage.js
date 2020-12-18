@@ -4,8 +4,8 @@ import InteractiveBoard from "./interactive2/InteractiveBoard";
 
 export default function HomePage() {
     const defaultData = [
-        {title: 'group 1', items: ['1', '2', '3']},
-        {title: 'group 2', items: ['4', '5']}
+        {title: 'Group 1', items: ['1', '2', '3']},
+        {title: 'Group 2', items: ['4', '5']}
     ];
 
     const [data, setData] = useState([]);

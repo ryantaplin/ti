@@ -32700,35 +32700,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function HomePage() {
-  // const data = {
-  //     owner: {
-  //         name: 'Task Interface',
-  //         prefix: 'TI',
-  //     },
-  //     columns: [{
-  //         name: 'Group 1',
-  //         cards: [
-  //             {number: '1'},
-  //             {number: '2'},
-  //             {number: '3'},
-  //             {number: '4'}
-  //         ]
-  //     }, {
-  //         name: 'Group 2',
-  //         cards: [
-  //             {number: '5'},
-  //             {number: '6'}
-  //         ]
-  //     }, {
-  //         name: 'Group 3',
-  //         cards: []
-  //     }]
-  // };
   var defaultData = [{
-    title: 'group 1',
+    title: 'Group 1',
     items: ['1', '2', '3']
   }, {
-    title: 'group 2',
+    title: 'Group 2',
     items: ['4', '5']
   }];
 
@@ -32739,19 +32715,13 @@ function HomePage() {
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     setData(defaultData);
-  }, [setData]); // const containerStyle = {
-  //     minHeight: '100vh',
-  //     minWidth: '100vw',
-  //     backgroundColor: '#282c34',
-  //     position: 'absolute',
-  //     overflow: 'hidden'
-  // };
+  }, [setData]); //TODO: extract Header/Footer into their own components
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-header"
-  }, "Interface Task Interface"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Task Interface"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_interactive2_InteractiveBoard__WEBPACK_IMPORTED_MODULE_1__["default"], {
     data: data
@@ -32793,6 +32763,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InteractiveBoard; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _column_InteractiveColumnHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./column/InteractiveColumnHeader */ "./src/main/js/component/page/interactive2/column/InteractiveColumnHeader.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -32804,6 +32775,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 function InteractiveBoard(_ref) {
@@ -32857,55 +32829,87 @@ function InteractiveBoard(_ref) {
     dragItemNode.current = null;
   };
 
-  var getStyles = function getStyles(item) {
-    if (dragItem.current.grpI === item.grpI && dragItem.current.itemI === item.itemI) {
-      return "interactive-card current";
+  var isSelected = function isSelected(item) {
+    if (dragging) {
+      if (dragItem.current.grpI === item.grpI && dragItem.current.itemI === item.itemI) {
+        return " isSelected";
+      }
     }
 
-    return "interactive-card";
+    return "";
   };
 
   if (list) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "interactive-board"
     }, list.map(function (grp, grpI) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: grp.title,
-        onDragEnter: dragging && !grp.items.length ? function (e) {
-          return handleDragEnter(e, {
-            grpI: grpI,
-            itemI: 0
-          });
-        } : null,
-        className: "interactive-column"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "interactive-column-title"
-      }, grp.title), grp.items.map(function (item, itemI) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          draggable: true,
-          key: item,
-          onDragStart: function onDragStart(e) {
-            return handleDragStart(e, {
+      return (
+        /*#__PURE__*/
+        //TODO: sepearate this out into own InteractiveColumn component
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: grp.title,
+          className: "interactive-column",
+          onDragEnter: dragging && !grp.items.length ? function (e) {
+            return handleDragEnter(e, {
               grpI: grpI,
-              itemI: itemI
+              itemI: 0
             });
-          },
-          onDragEnter: dragging ? function (e) {
-            handleDragEnter(e, {
-              grpI: grpI,
-              itemI: itemI
-            });
-          } : null,
-          className: dragging ? getStyles({
-            grpI: grpI,
-            itemI: itemI
-          }) : "interactive-card"
-        }, item);
-      }));
+          } : null
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_column_InteractiveColumnHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          title: grp.title
+        }), grp.items.map(function (item, itemI) {
+          return (
+            /*#__PURE__*/
+            //TODO: separate this out into own InteractiveCard component
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              draggable: true,
+              key: item,
+              className: "interactive-card".concat(isSelected({
+                grpI: grpI,
+                itemI: itemI
+              })),
+              onDragStart: function onDragStart(e) {
+                return handleDragStart(e, {
+                  grpI: grpI,
+                  itemI: itemI
+                });
+              },
+              onDragEnter: dragging ? function (e) {
+                handleDragEnter(e, {
+                  grpI: grpI,
+                  itemI: itemI
+                });
+              } : null
+            }, item)
+          );
+        }))
+      );
     }));
   } else {
     return null;
   }
+}
+
+/***/ }),
+
+/***/ "./src/main/js/component/page/interactive2/column/InteractiveColumnHeader.js":
+/*!***********************************************************************************!*\
+  !*** ./src/main/js/component/page/interactive2/column/InteractiveColumnHeader.js ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return InteractiveColumnHeader; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function InteractiveColumnHeader(_ref) {
+  var title = _ref.title;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "interactive-column-header"
+  }, title);
 }
 
 /***/ }),

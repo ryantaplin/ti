@@ -1,4 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import InteractiveColumnHeader from "./column/InteractiveColumnHeader";
 
 export default function InteractiveBoard({data}) {
     const [list, setList] = useState(data);
@@ -20,7 +21,7 @@ export default function InteractiveBoard({data}) {
 
         setTimeout(() => {
             setDragging(true);
-        },0)
+        }, 0)
     };
     const handleDragEnter = (e, targetItem) => {
         console.log('Entering a drag target', targetItem)
@@ -28,7 +29,7 @@ export default function InteractiveBoard({data}) {
             console.log('Target is NOT the same as dragged item')
             setList(oldList => {
                 let newList = JSON.parse(JSON.stringify(oldList))
-                newList[targetItem.grpI].items.splice(targetItem.itemI, 0, newList[dragItem.current.grpI].items.splice(dragItem.current.itemI,1)[0])
+                newList[targetItem.grpI].items.splice(targetItem.itemI, 0, newList[dragItem.current.grpI].items.splice(dragItem.current.itemI, 1)[0])
                 dragItem.current = targetItem;
                 localStorage.setItem('List', JSON.stringify(newList));
                 return newList
@@ -41,21 +42,35 @@ export default function InteractiveBoard({data}) {
         dragItemNode.current.removeEventListener('dragend', handleDragEnd)
         dragItemNode.current = null;
     };
-    const getStyles = (item) => {
-        if (dragItem.current.grpI === item.grpI && dragItem.current.itemI === item.itemI) {
-            return "interactive-card current"
+    const isSelected = (item) => {
+        if (dragging) {
+            if (dragItem.current.grpI === item.grpI && dragItem.current.itemI === item.itemI) {
+                return " isSelected"
+            }
         }
-        return "interactive-card"
+        return ""
     };
 
     if (list) {
         return (
             <div className="interactive-board">
                 {list.map((grp, grpI) => (
-                    <div key={grp.title} onDragEnter={dragging && !grp.items.length?(e) => handleDragEnter(e,{grpI, itemI: 0}):null} className="interactive-column">
-                        <div className="interactive-column-title">{grp.title}</div>
+                    //TODO: sepearate this out into own InteractiveColumn component
+                    <div key={grp.title} className="interactive-column"
+                         onDragEnter={dragging && !grp.items.length ? (e) => handleDragEnter(e, {
+                             grpI,
+                             itemI: 0
+                         }) : null}>
+                        <InteractiveColumnHeader title={grp.title}/>
                         {grp.items.map((item, itemI) => (
-                            <div draggable key={item}  onDragStart={(e) => handleDragStart(e, {grpI, itemI})} onDragEnter={dragging?(e) => {handleDragEnter(e, {grpI, itemI})}:null} className={dragging?getStyles({grpI, itemI}):"interactive-card"}>
+                            //TODO: separate this out into own InteractiveCard component
+                            <div draggable
+                                 key={item}
+                                 className={"interactive-card".concat(isSelected({grpI, itemI}))}
+                                 onDragStart={(e) => handleDragStart(e, {grpI, itemI})}
+                                 onDragEnter={dragging ? (e) => {
+                                     handleDragEnter(e, {grpI, itemI})
+                                 } : null}>
                                 {item}
                             </div>
                         ))}
