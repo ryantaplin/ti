@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import InteractiveBoard from "./interactive2/InteractiveBoard";
+import InteractiveBoard from "./interactive/InteractiveBoard";
 
 
 export default function HomePage() {
